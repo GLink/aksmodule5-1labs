@@ -100,8 +100,8 @@ Write-Host "✅ Pod with nodeSelector deployed"
 kubectl get pod nginx-production -n node-selector-demo -o wide
 
 # Verify it's on the production node
-kubectl get pod nginx-production -n node-selector-demo `
-  -o jsonpath='{.spec.nodeName}{"\n"}'
+kubectl get pod nginx-production -n node-selector-demo -o jsonpath="{.spec.nodeName}"
+Write-Host ""
 
 # Check node labels
 kubectl get node $NODE1 --show-labels | Select-String environment

@@ -406,8 +406,8 @@ Write-Host "✅ SQL access service account and federated credential created"
 
 ```powershell
 # List all service accounts with workload identity
-kubectl get serviceaccounts -n workload-identity-demo `
-  -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.annotations.azure\.workload\.identity/client-id}{"\n"}{end}'
+$sas = (kubectl get serviceaccounts -n workload-identity-demo -o json | ConvertFrom-Json).items
+$sas | ForEach-Object { "$($_.metadata.name)`t$($_.metadata.annotations.'azure.workload.identity/client-id')" }
 
 # Describe service account
 kubectl describe sa blob-reader-sa -n workload-identity-demo

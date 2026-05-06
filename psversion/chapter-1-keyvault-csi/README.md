@@ -53,7 +53,7 @@ kubectl get pods -n kube-system -l app=secrets-store-csi-driver
 
 # Check the containers in the CSI driver pods (includes Azure provider as sidecar)
 Write-Host "`nCSI Driver Pod Containers:"
-kubectl get pods -n kube-system -l app=secrets-store-csi-driver -o jsonpath='{range .items[0].spec.containers[*]}{.name}{"\n"}{end}'
+(kubectl get pods -n kube-system -l app=secrets-store-csi-driver -o json | ConvertFrom-Json).items[0].spec.containers.name
 
 # View CSI driver daemonset
 kubectl get daemonset -n kube-system aks-secrets-store-csi-driver
